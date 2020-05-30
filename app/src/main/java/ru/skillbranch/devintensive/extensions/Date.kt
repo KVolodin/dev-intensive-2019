@@ -1,4 +1,4 @@
-package ru.skillbranch.devintensive.extentions
+package ru.skillbranch.devintensive.extensions
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,23 +39,6 @@ fun Date.humanizeDiff(): String {
         in (22 * HOUR)..(360 * DAY) ->getString(TimeUnits.DAY,round(milliseconds.toDouble()  / DAY.toDouble()) )
         else -> "более года назад"
     }
-/*
-
-
-    var diff : Int = (milliseconds / DAY).toInt()
-    if( diff > 0 )
-        return "Был в сети ${TimeUnits.DAY.plural(diff)} назад"
-
-    diff = (milliseconds / HOUR).toInt()
-    if( diff > 0 )
-        return "Был в сети ${TimeUnits.HOUR.plural(diff)} назад"
-
-    diff = (milliseconds / MINUTE).toInt()
-    if( diff > 0 )
-        return "Был в сети ${TimeUnits.MINUTE.plural(diff)} назад"
-
-    diff = (milliseconds / SECOND).toInt()
-    return "Был в сети ${TimeUnits.SECOND.plural(diff)} назад"*/
 }
 
 enum class TimeUnits {
