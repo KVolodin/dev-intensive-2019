@@ -1,0 +1,42 @@
+package ru.skillbranch.devintensive.utils
+
+val transliterationMap = mapOf(
+    'а' to "a", 'б' to "b", 'в' to "v",  'г' to "g",
+    'д' to "d", 'е' to "e", 'ё' to "e", 'ж' to "zh", 'з' to "z", 'и' to "i",
+    'й' to "i", 'к' to "k", 'л' to "l", 'м' to "m", 'н' to "n", 'о' to "o",
+    'п' to "p", 'р' to "r", 'с' to "s", 'т' to "t", 'у' to "u", 'ф' to "f",
+    'х' to "h", 'ц' to "c", 'ч' to "ch", 'ш' to "sh",
+    'щ' to "sh'", 'ъ' to "", 'ы' to "i", 'ь' to "", 'э' to "e", 'ю' to "yu", 'я' to "ya")
+
+object Utils {
+
+    fun parseFullName(fullName:String?) :Pair<String?,String?> {
+        val parts = fullName?.split(" ")?.toList()
+        return  parts?.getOrNull(0) to parts?.getOrNull(1)
+    }
+
+    fun transliteration(payload: String, divider: String = ""): String? {
+        var ret = ""
+        for (ch in payload) {
+            ret += if (ch != ' ') transliterationMap[ch.toLowerCase()].let {
+                if(it == null)
+                    return@let ch
+                if(ch.isUpperCase()) it.toUpperCase() else it
+            } else divider
+        }
+        return ret
+    }
+
+    fun toInitials(firstName: String?, lastName: String?): String? {
+        val first = firstName?.take(1)?.toUpperCase()
+        val second = lastName?.take(1)?.toUpperCase()
+        if(first == null && second != null)
+            return second
+        if(first != null && second == null)
+            return first
+        if(first == null && second == null)
+            return null
+
+        return first + second
+    }
+}
