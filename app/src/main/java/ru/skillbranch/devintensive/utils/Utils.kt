@@ -11,11 +11,15 @@ val transliterationMap = mapOf(
 object Utils {
 
     fun parseFullName(fullName:String?) :Pair<String?,String?> {
+
+        val isEmpty = fullName?.trim()?.isEmpty()
+        if(isEmpty == null || isEmpty)
+            return null to null
         val parts = fullName?.split(" ")?.toList()
         return  parts?.getOrNull(0) to parts?.getOrNull(1)
     }
 
-    fun transliteration(payload: String, divider: String = ""): String? {
+    fun transliteration(payload: String, divider: String = " "): String? {
         var ret = ""
         for (ch in payload) {
             ret += if (ch != ' ') transliterationMap[ch.toLowerCase()].let {
@@ -28,15 +32,8 @@ object Utils {
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
-        val first = firstName?.take(1)?.toUpperCase()
-        val second = lastName?.take(1)?.toUpperCase()
-        if(first == null && second != null)
-            return second
-        if(first != null && second == null)
-            return first
-        if(first == null && second == null)
-            return null
-
-        return first + second
+        val first = firstName?.take(1)?.toUpperCase()?.trim() ?: ""
+        val second = lastName?.take(1)?.toUpperCase()?.trim() ?: ""
+        return if( (first + second).isNotEmpty() ) (first + second) else null
     }
 }

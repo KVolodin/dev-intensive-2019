@@ -55,21 +55,21 @@ enum class TimeUnits {
         }
     }
     private fun getPluralSecondsOrSeconds(i: Int,str:String): String {
-        return str + when (i) {
+        return str + when (i%20) {
             1-> "у"
             2,3,4-> "ы"
             else -> ""
         }
     }
     private fun getPluralHour( i : Int ) : String {
-        return when (i) {
+        return when (i%20) {
             1-> "час"
             2,3,4-> "часа"
             else -> "часов"
         }
     }
     private fun getPluralDay(i: Int): String {
-        return when (i) {
+        return when (i%20) {
             1-> "день"
             2,3,4-> "дня"
             else -> "дней"
