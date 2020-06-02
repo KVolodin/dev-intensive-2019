@@ -12,13 +12,13 @@ class Bender (var  status : Status = Status.NORMAL, var question: Question = Que
     }
 
     fun listenAnswer(answer:String) : Pair<String,Triple<Int,Int,Int>> {
-        return if(question.answer.contains(answer)) {
+        return if(question == Question.IDLE || question.answer.contains(answer)) {
             question = question.nextQuestion()
             "Отлично - ты справился\n${question.question}" to status.color
         } else {
             val addEnd = if(status == Status.CRITICAL) { question = Question.NAME; ". Давай все по новой" } else ""
             status = status.nextStratus()
-            "${question.validation()}$addEnd\n${question.question}" to status.color
+            "${"Это неправильный ответ"}$addEnd\n${question.question}" to status.color
         }
     }
     enum class  Status(val color : Triple<Int,Int,Int>) {
